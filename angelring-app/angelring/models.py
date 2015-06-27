@@ -128,6 +128,6 @@ class Combination(db.Model):
     code3 = db.Column(db.Integer)
     url = db.Column(db.Text)
     
-    def __init__(self):
-        self.url = ""
+    # def __init__(self):
+        # self.url = ""
     

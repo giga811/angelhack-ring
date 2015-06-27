@@ -10,14 +10,16 @@ from flask import Flask, request, session, url_for, redirect, render_template, a
 from werkzeug import check_password_hash, generate_password_hash
 from flask.ext.restful import reqparse, abort, Api, Resource
 import json
+import random
 
 
 # user imports
-from angelring import app, db
+from angelring import app, db, models
 import os
 from .forms import GenerateForm
 from models import Combination
 from random import randint
+
 
 # code for museum
 @app.route('/museum')
@@ -30,7 +32,6 @@ def massage():
     return render_template('massage.html')
 
 # code to run appscript
-#
 def keyCode(keycode):
     cmd = """
     osascript -e 'tell application "System Events"
@@ -91,33 +92,37 @@ def test_page():
 @app.route('/generate/', methods=['GET', 'POST'])
 def generate():
     form = GenerateForm()
+    links = Combination.query.all()
+
     if request.method == 'POST':
         if form.validate() == False:
             return render_template('generate.html', form=form)
         else:
-            found = False
-            code1 = 1
-            code2 = 1
-            code3 = 1
-            combi = None
-            while (not found):
-                code1 = randint(1,9)
-                code2 = randint(1,9)
-                code3 = randint(1,9)
-                combi = Combination.query.filter(code1 ==code1)\
-                    .filter(code2 ==code2)\
-                    .filter(code3 ==code3)
-                if (combi):
-                    found = True
-            print code1
-            print code2
-            print code3
-            print ""
-            # db.session.add(combi)
-            # db.session.commit()
-            return render_template('generate.html', success = True, code1 = code1, code2 = code2, code3 = code3)
+            link = Combination.query.filter_by(url = form.url.data).first()
+            if link is None:
+                found = False
+                code = [1, 1, 1]
+                while found is False:
+                    code = [randint(1, 5), randint(1, 5), randint(1, 5)]
+                    combi = Combination.query.filter_by(code1 = code[0]).\
+                    filter_by(code2 = code[1]).\
+                    filter_by(code3 = code[2]).first()
+                    if combi is None:
+                        new_link = Combination(
+                            code1 = code[0],
+                            code2 = code[1],
+                            code3 = code[2],
+                            url = form.url.data
+                            )
+                        db.session.add(new_link)
+                        db.session.commit()
+                        found = True
 
-    return render_template('generate.html', form=form)
+                return render_template('generate.html', success = True, code = code, links = links)
+            codes = [int(link.code1), int(link.code2), int(link.code3)]
+            return render_template('generate.html', already = True, code = codes, links = links)
+
+    return render_template('generate.html', form=form, links = links)
 
 @app.route('/seedb/')
 def seedb():
