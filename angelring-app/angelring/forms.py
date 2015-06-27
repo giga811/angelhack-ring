@@ -8,4 +8,4 @@ from wtforms.validators import Email, EqualTo, Length, Required, AnyOf
 class GenerateForm(Form):
     url = TextField(u"Insert Your Domain",  [Required()])
 
-    submit = SubmitField(u"Generate Magic")
+    submit = SubmitField(u"Hocus Focus")
