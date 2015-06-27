@@ -86,7 +86,7 @@ def generate():
 
     if request.method == 'POST':
         if form.validate() == False:
-            return render_template('generate.html', form=form)
+            return render_template('generate.html', form=form, links=links)
         else:
             link = Combination.query.filter_by(url = form.url.data).first()
             if link is None:
