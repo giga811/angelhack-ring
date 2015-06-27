@@ -108,9 +108,9 @@ def generate():
                         db.session.commit()
                         found = True
 
-                return render_template('generate.html', success = True, code = code, links = links)
+                return render_template('generate.html', success = True, code = code, links = links, link = link)
             codes = [int(link.code1), int(link.code2), int(link.code3)]
-            return render_template('generate.html', already = True, code = codes, links = links)
+            return render_template('generate.html', already = True, code = codes, links = links, link = link)
 
     return render_template('generate.html', form=form, links = links)
 
