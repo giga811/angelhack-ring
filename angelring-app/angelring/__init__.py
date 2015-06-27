@@ -22,4 +22,4 @@ api = Api(app)
 db = SQLAlchemy(app)
 
 # user imports
-from angelring import controllers, models
+from angelring import controllers, models, spellcontrollers
