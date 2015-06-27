@@ -81,7 +81,6 @@ def test_page():
 @app.route('/generate/', methods=['GET', 'POST'])
 def generate():
     form = GenerateForm()
-    res = 0
     if request.method == 'POST':
         if form.validate() == False:
             return render_template('generate.html', form=form)

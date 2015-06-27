@@ -7,6 +7,5 @@ from wtforms.validators import Email, EqualTo, Length, Required, AnyOf
 
 class GenerateForm(Form):
     url = TextField(u"Insert Link",  [Required()])
-    signs = 
 
     submit = SubmitField(u"Generate")
