@@ -82,6 +82,8 @@ def test_page():
 @app.route('/generate/', methods=['GET', 'POST'])
 def generate():
     form = GenerateForm()
+    links = Combination.query.all()
+
     if request.method == 'POST':
         if form.validate() == False:
             return render_template('generate.html', form=form)
@@ -108,11 +110,10 @@ def generate():
                         db.session.commit()
                         found = True
 
-                return render_template('generate.html', success = True, code = code)
+                return render_template('generate.html', success = True, code = code, links = links)
             codes = [int(link.code1), int(link.code2), int(link.code3)]
-            return render_template('generate.html', already = True, code = codes)
+            return render_template('generate.html', already = True, code = codes, links = links)
 
-    links = Combination.query.all()
     return render_template('generate.html', form=form, links = links)
 
 @app.route('/seedb/')
