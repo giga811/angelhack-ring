@@ -9,10 +9,17 @@
 <div style="text-align: center;">
     <p>Your Signs</p>
 
-    <img class="img-responsive" src="/img/sign/{{num1}}.png" style="width:50; height=50; " alt="">
-    <img class="img-responsive" src="/img/sign/{{num2}}.png" style="width:50; height=50; " alt="">
-    <img class="img-responsive" src="/img/sign/{{num3}}.png" style="width:50; height=50; " alt="">
+    <img class="img-responsive" src="/img/sign/{{code[0]}}.png" style="width:50; height=50; " alt="">
+    <img class="img-responsive" src="/img/sign/{{code[1]}}.png" style="width:50; height=50; " alt="">
+    <img class="img-responsive" src="/img/sign/{{code[2]}}.png" style="width:50; height=50; " alt="">
 </div>
+
+{% elif already %}
+    <p>Your Signs. Already</p>
+
+    <img class="img-responsive" src="/img/sign/{{code[0]}}.png" style="width:50; height=50; " alt="">
+    <img class="img-responsive" src="/img/sign/{{code[1]}}.png" style="width:50; height=50; " alt="">
+    <img class="img-responsive" src="/img/sign/{{code[2]}}.png" style="width:50; height=50; " alt="">
 
 {% else %}
 <h3>GENERATE</h3>
@@ -20,5 +27,28 @@
     <div style="max-width:400px;margin-top:40px;">
         {{ render_form(url_for('generate'), form) }}
     </div>
+
+    <div class="container">
+    <h2>Link Table</h2>
+    <table class='table table-bordered table-hover'>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Link</th>
+                <th>Sign</th>
+            </tr>
+        </thead>
+        {% for link in links %}
+            <tr>
+                <td>{{ link.id }}</td>
+                <td>{{ link.url }}</td>
+                <td>    <img class="img-responsive" src="/img/sign/{{link.code1}}.png" style="width:50; height=50; " alt="">
+    <img class="img-responsive" src="/img/sign/{{link.code2}}.png" style="width:50; height=50; " alt="">
+    <img class="img-responsive" src="/img/sign/{{link.code3}}.png" style="width:50; height=50; " alt=""></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</div>
 {% endif %}
 
