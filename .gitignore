@@ -55,3 +55,18 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Fbone (angelring-app) ignores
+*.egg-info
+*.log
+*.pyc
+*.db
+*.swp
+*.swo
+*.zip
+*.cfg
+*.tox
+*.mo
+
+*.db
+*.sqlite

@@ -14,6 +14,46 @@ import json
 
 # user imports
 from angelring import app
+import os
+
+
+# code to run appscript
+#
+def keyCode(keycode):
+    cmd = """
+    osascript -e 'tell application "System Events"
+    key code """ + keycode + """
+    end tell'
+    """
+    os.system(cmd)
+
+@app.route('/slideshow')
+def slideshow():
+    cmd = """
+    osascript -e '
+    tell application "Microsoft PowerPoint"
+    delay 1
+    set slideShowSettings to slide show settings of active presentation
+    run slide show slideShowSettings
+    end tell'
+    """
+    os.system(cmd)
+    print "Go slideshow"
+    return "ok"
+
+@app.route('/right')
+def goright():
+    keyCode("124")
+    print "Go right"
+    return "ok"
+
+@app.route('/left')
+def goleft():
+    keyCode("123")
+    print "Go left"
+    return "ok"
+
+
 
 # route for INDEX
 @app.route("/")
