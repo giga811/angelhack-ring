@@ -1,3 +1,5 @@
+{% from "macros/_form.html" import render_form %}
+
 {% extends "layout.html" %}
 {% block body %}
 <!-- Index Page -->
@@ -11,9 +13,10 @@
                 <div class="intro-text">
                     <span class="name">Angel Ring</span>
                     <hr class="star-light">
-                    <span class="skills">
-                        Become A Wizard!
-                    </span>
+                    <!-- <span class="skills"> -->
+                        <a href="{{ url_for('generate') }}" class="skills" style="color:#FFFFFF"> Become A Wizard! </a>
+
+                    <!-- </span> -->
                 </div>
             </div>
         </div>
