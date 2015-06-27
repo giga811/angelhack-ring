@@ -93,12 +93,10 @@ def generate():
                 found = False
                 code = [1, 1, 1]
                 while found is False:
-                    code = random.sample([1, 2, 3, 4], 3)
-                    # combi = db.Combination.query.filter(
-                    #     db.Combination.code1 == code[0], 
-                    #     db.Combination.code2 == code[1],
-                    #     db.Combination.code3 == code[2]).first()
-                    combi = Combination.query.filter_by(code1 = code[0]).first()
+                    code = [randint(1, 5), randint(1, 5), randint(1, 5)]
+                    combi = Combination.query.filter_by(code1 = code[0]).\
+                    filter_by(code2 = code[1]).\
+                    filter_by(code3 = code[2]).first()
                     if combi is None:
                         new_link = Combination(
                             code1 = code[0],
