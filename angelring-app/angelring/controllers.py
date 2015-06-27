@@ -19,7 +19,15 @@ from .forms import GenerateForm
 from models import Combination
 from random import randint
 
+# code for museum
+@app.route('/museum')
+def museum():
+    return render_template('museum.html')
 
+# code for massage
+@app.route('/massage')
+def massage():
+    return render_template('massage.html')
 
 # code to run appscript
 #
@@ -101,8 +109,8 @@ def generate():
                     .filter(code3 ==code3)
                 if (combi):
                     found = True
-            print code1 
-            print code2 
+            print code1
+            print code2
             print code3
             print ""
             # db.session.add(combi)

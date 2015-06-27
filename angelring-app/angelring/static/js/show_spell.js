@@ -1,13 +1,27 @@
 // reset spell. calls api
+// and animate out
 function reset_spell(){
     $.get('/spell/reset_spell');
-    console.log("#Reset spell.")
+    console.log("#Reset spell.");
+    animate_out_spell();
 }
 
 function sp_spell(spell){
     var myHtml = 'Spell Casted: ' + spell + '<br>';
-    console.log(spell)
+
     $('#result').prepend(myHtml);
+    console.log("#Spell casted: " + spell);
+
+    // if monalisa
+    if (spell == "133"){
+        console.log("item-1");
+        $('#museum-info').hide();
+        $('#item-1').show();
+    }
+    if ( spell == "a"){
+        $('#item-1-info').hide();
+        $('#item-1-video').show();
+    }
 }
 
 function show_current_spell(spell){
@@ -15,9 +29,45 @@ function show_current_spell(spell){
     out.empty();
 
     for (var i = 0; i < spell.length; i++) {
-      var html = '<img src="/img/spell/' + spell[i] +  '.png">';
+      var html = '<img id="spell_image" src="/img/spell/' + spell[i] +  '.png">';
       out.append(html);
     }
+}
+
+function animate_in_spell(data){
+
+    $('#stones').fadeIn();
+    if (data.length == 0){
+        $("#stone1").hide();
+        $("#stone2").hide();
+        $("#stone3").hide();
+    }
+    if (data.length == 1){
+        $("#stone1").attr('src','/img/stone/' + data[0] + '.png');
+        $("#stone1").fadeIn("slow");
+    }
+    if (data.length == 2){
+        $("#stone2").attr('src','/img/stone/' + data[1] + '.png');
+        $("#stone2").fadeIn("slow");
+    }
+    if (data.length == 3){
+        $("#stone3").attr('src','/img/stone/' + data[2] + '.png');
+        $("#stone3").fadeIn("slow");
+    }
+
+}
+
+function animate_out_spell(){
+
+    var div = $("#stones")
+    div.animate({margin: '50px'}, "slow");
+    div.animate({fontSize: '3em'}, "slow");
+    $('#stone1').attr('src','img/stone/4-l.png');
+    $('#stone2').attr('src','img/stone/4-l.png');
+    $('#stone3').attr('src','img/stone/4-l.png');
+    $("#stones").fadeOut("slow");
+
+
 }
 
 $(document).ready(function(){
@@ -32,7 +82,10 @@ $(document).ready(function(){
 //      type                 // xml、json、scriptもしくはhtml (jquery.getやjquery.postのdataType)
     },
     function(data){
+        console.log(data);
         show_current_spell(data);
+
+        animate_in_spell(data);
 
         // if spell is special
         if (data.length == 1){
@@ -56,7 +109,6 @@ $(document).ready(function(){
         if (data.length == 3){
             // do spell
             sp_spell(data);
-
             reset_spell();
         }
 

@@ -21,18 +21,74 @@ import os
 
 # global var for current spell
 current_spell = []
+www = False
 
+# function for opening url
+def www_open_url(current_spell):
+    spell = ""
+    for s in current_spell:
+        spell += str(s)
+
+    if spell == "333":
+        open_url("http://reraku.jp/")
+    if spell == "334":
+        open_url("http://angelhack.com/hackathon/tokyo-spring-2015/")
+    if spell == "335":
+        open_url("http://www.tokyoartmuseum.com/")
+    if spell == "344":
+        open_url("https://www.facebook.com/reraku")
+
+def open_url(url):
+    cmd="""
+    osascript -e 'tell application "Safari"
+    activate
+    open location "{url}"
+    end tell'
+    """.format(url=url)
+    os.system(cmd)
+
+
+# api for normal spell
+# also triggers www
 @app.route('/spell/<int:id>')
 def spell_input(id):
     global current_spell
+    global www
     current_spell.append(id)
     print "#Current spell is: ", current_spell
+
+    # if www true
+    if www and len(current_spell) == 3:
+        www_open_url(current_spell)
+        reset_spell()
+        www = False
+
     return "ok"
 
 @app.route('/spell/sp/<special>')
 def special_spell(special):
     global current_spell
     current_spell.append(special)
+    print "#Current spell is: ", current_spell
+    return "ok"
+
+@app.route('/spell/uniq/<special>')
+def uniq_spell(special):
+    global current_spell
+    global www
+    current_spell = []
+
+    if special == "A":
+        open_url("http://localhost:5000/museum")
+    if special == "B":
+        open_url("http://localhost:5000/massage")
+
+
+    if special == "W":
+        reset_spell()
+        www = True
+
+    print "#Uniq spell: ", special
     print "#Current spell is: ", current_spell
     return "ok"
 
@@ -48,6 +104,8 @@ def get_spell():
 @app.route('/spell/reset_spell')
 def reset_spell():
     global current_spell
+    global www
+    www = False
     current_spell = []
     print "#Reset current spell: ", current_spell
     return "ok"
