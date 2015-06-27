@@ -13,9 +13,11 @@ import json
 
 
 # user imports
-from angelring import app
+from angelring import app, db
 import os
 from .forms import GenerateForm
+from models import Combination
+from random import randint
 
 
 
@@ -85,11 +87,40 @@ def generate():
         if form.validate() == False:
             return render_template('generate.html', form=form)
         else:
-            return render_template('generate.html', success = True)
-
+            found = False
+            code1 = 1
+            code2 = 1
+            code3 = 1
+            combi = None
+            while (not found):
+                code1 = randint(1,9)
+                code2 = randint(1,9)
+                code3 = randint(1,9)
+                combi = Combination.query.filter(code1 ==code1)\
+                    .filter(code2 ==code2)\
+                    .filter(code3 ==code3)
+                if (combi):
+                    found = True
+            print code1 
+            print code2 
+            print code3
+            print ""
+            # db.session.add(combi)
+            # db.session.commit()
+            return render_template('generate.html', success = True, code1 = code1, code2 = code2, code3 = code3)
 
     return render_template('generate.html', form=form)
 
+@app.route('/seedb/')
+def seedb():
+    combi = Combination.query.all()
+    return render_template('seedb.html', data = combi)
+
+# @app.route('/populate/')
+# def populate():
+#     for code1 in range(1, 10):
+#         for code2 in range(1, 10):
+#             for code3 in range(1, 10):
 
 ### static file helpers
 # route for static js, css files
