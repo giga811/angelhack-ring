@@ -3,9 +3,16 @@
 {% set page_title = 'Generate' %}
 
 
+
 {% if success %}
 
-<p>YES</p>
+<div style="text-align: center;">
+    <p>Your Signs</p>
+
+    <img class="img-responsive" src="/img/sign/{{num1}}.png" style="width:50; height=50; " alt="">
+    <img class="img-responsive" src="/img/sign/{{num2}}.png" style="width:50; height=50; " alt="">
+    <img class="img-responsive" src="/img/sign/{{num3}}.png" style="width:50; height=50; " alt="">
+</div>
 
 {% else %}
 <h3>GENERATE</h3>
