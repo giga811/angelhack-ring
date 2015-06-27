@@ -13,7 +13,8 @@ import json
 
 
 # user imports
-from angelring import app
+from angelring import app, models, db
+from models import Combination
 import os
 
 
@@ -29,14 +30,20 @@ def www_open_url(current_spell):
     for s in current_spell:
         spell += str(s)
 
-    if spell == "333":
-        open_url("http://reraku.jp/")
-    if spell == "334":
-        open_url("http://angelhack.com/hackathon/tokyo-spring-2015/")
-    if spell == "335":
-        open_url("http://www.tokyoartmuseum.com/")
-    if spell == "344":
-        open_url("https://www.facebook.com/reraku")
+    combi = Combination.query.filter_by(code1 = int (spell[0])).\
+                    filter_by(code2 = int (spell[1])).\
+                    filter_by(code3 = int (spell[2])).first()
+    if (combi):
+        print combi.url
+        open_url(combi.url)
+    # if spell == "333":
+    #     open_url("http://reraku.jp/")
+    # if spell == "334":
+    #     open_url("http://angelhack.com/hackathon/tokyo-spring-2015/")
+    # if spell == "335":
+    #     open_url("http://www.tokyoartmuseum.com/")
+    # if spell == "344":
+    #     open_url("https://www.facebook.com/reraku")
 
 def open_url(url):
     cmd="""
