@@ -68,8 +68,13 @@ def get_sensor():
     return "200"
 
 # tests
+
+test_i = 0
 @app.route('/test')
 def test_page():
+    global test_i
+    test_i += 123
+    print test_i
     return "ok"
 
 # get mail
