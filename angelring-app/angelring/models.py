@@ -119,3 +119,15 @@ class Review(db.Model):
 
     def __getitem__(self, name):
         return self.__getattribute__(name)
+
+#Code Combinations
+class Combination(db.Model):
+    id =  db.Column(db.Integer, primary_key=True)
+    code1 = db.Column(db.Integer)
+    code2 = db.Column(db.Integer)
+    code3 = db.Column(db.Integer)
+    url = db.Column(db.Text)
+    
+    def __init__(self)
+        self.url = ""
+    
