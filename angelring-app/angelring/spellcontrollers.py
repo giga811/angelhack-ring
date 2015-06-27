@@ -29,11 +29,21 @@ def spell_input(id):
     print "#Current spell is: ", current_spell
     return "ok"
 
+@app.route('/spell/sp/<special>')
+def special_spell(special):
+    global current_spell
+    current_spell.append(special)
+    print "#Current spell is: ", current_spell
+    return "ok"
+
 @app.route('/spell/get_spell')
 def get_spell():
     global current_spell
     print "#Return current spell: ", current_spell
-    return str(current_spell)
+    spell = ""
+    for s in current_spell:
+        spell += str(s)
+    return spell
 
 @app.route('/spell/reset_spell')
 def reset_spell():

@@ -1,14 +1,22 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Show Spell</title>
 </head>
 <body>
 
-<div id="result">
+    <h1>Casted Spells:</h1>
+    <div id="result">
 
-</div>
+    </div>
+
+    <h1>Current Spell:</h1>
+    <div id="current_spell">
+
+    </div>
 
 </body>
-<script src="{{ url_for('static', filename='js/show_spell.js') }}"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.periodicalupdater.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/show_spell.js') }}"></script>
 </html>
