@@ -1,0 +1,17 @@
+{% from "macros/_form.html" import render_form %}
+
+{% set page_title = 'Generate' %}
+
+
+{% if success %}
+
+<p>YES</p>
+
+{% else %}
+<h3>GENERATE</h3>
+
+    <div style="max-width:400px;margin-top:40px;">
+        {{ render_form(url_for('generate'), form) }}
+    </div>
+{% endif %}
+

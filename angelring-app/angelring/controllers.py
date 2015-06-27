@@ -15,6 +15,8 @@ import json
 # user imports
 from angelring import app
 import os
+from .forms import GenerateForm
+
 
 
 # code to run appscript
@@ -74,6 +76,19 @@ def test_page():
     test_i += 123
     print test_i
     return "ok"
+
+# get mail
+@app.route('/generate/', methods=['GET', 'POST'])
+def generate():
+    form = GenerateForm()
+    if request.method == 'POST':
+        if form.validate() == False:
+            return render_template('generate.html', form=form)
+        else:
+            return render_template('generate.html', success = True)
+
+
+    return render_template('generate.html', form=form)
 
 
 ### static file helpers
