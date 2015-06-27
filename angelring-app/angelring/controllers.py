@@ -20,8 +20,18 @@ from .forms import GenerateForm
 from models import Combination
 from random import randint
 
-# code to run appscript
 
+# code for museum
+@app.route('/museum')
+def museum():
+    return render_template('museum.html')
+
+# code for massage
+@app.route('/massage')
+def massage():
+    return render_template('massage.html')
+
+# code to run appscript
 def keyCode(keycode):
     cmd = """
     osascript -e 'tell application "System Events"

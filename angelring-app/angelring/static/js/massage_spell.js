@@ -1,9 +1,7 @@
 // reset spell. calls api
-// and animate out
 function reset_spell(){
     $.get('/spell/reset_spell');
-    console.log("#Reset spell.");
-    animate_out_spell();
+    console.log("#Reset spell.")
 }
 
 function sp_spell(spell){
@@ -12,15 +10,39 @@ function sp_spell(spell){
     $('#result').prepend(myHtml);
     console.log("#Spell casted: " + spell);
 
-    // if monalisa
+    // if kakushi cmd
     if (spell == "133"){
-        console.log("item-1");
-        $('#museum-info').hide();
-        $('#item-1').show();
+        console.log("kakushi");
+        $('#massage_feel').hide();
+        $('#kakushi').show();
     }
+    // if good "気持ちいい"
     if ( spell == "a"){
-        $('#item-1-info').hide();
-        $('#item-1-video').show();
+        $('#massage_feel').show();
+        $('#kakushi').hide();
+
+        $('#massage_good').show();
+        $('#massage_ouch').hide();
+        $('#massage_motto').hide();
+    }
+
+    // if ouch "痛い"
+    if ( spell == "b"){
+        $('#massage_feel').show();
+        $('#kakushi').hide();
+
+        $('#massage_good').hide();
+        $('#massage_ouch').show();
+        $('#massage_motto').hide();
+    }
+    // if motto "もっと強く"
+    if ( spell == "c"){
+        $('#massage_feel').show();
+        $('#kakushi').hide();
+
+        $('#massage_good').hide();
+        $('#massage_ouch').hide();
+        $('#massage_motto').show();
     }
 }
 
@@ -34,39 +56,17 @@ function show_current_spell(spell){
     }
 }
 
-function animate_in_spell(data){
+function animate_spell(){
 
-    $('#stones').fadeIn();
-    if (data.length == 0){
-        $("#stone1").hide();
-        $("#stone2").hide();
-        $("#stone3").hide();
-    }
-    if (data.length == 1){
-        $("#stone1").attr('src','/img/stone/' + data[0] + '.png');
-        $("#stone1").fadeIn("slow");
-    }
-    if (data.length == 2){
-        $("#stone2").attr('src','/img/stone/' + data[1] + '.png');
-        $("#stone2").fadeIn("slow");
-    }
-    if (data.length == 3){
-        $("#stone3").attr('src','/img/stone/' + data[2] + '.png');
-        $("#stone3").fadeIn("slow");
-    }
+    // $("#current_spell").animate({
+    //     height: "150%",
+    //     opacity: 0.8,
+    // });
 
-}
-
-function animate_out_spell(){
-
-    var div = $("#stones")
-    div.animate({margin: '50px'}, "slow");
-    div.animate({fontSize: '3em'}, "slow");
-    $('#stone1').attr('src','img/stone/4-l.png');
-    $('#stone2').attr('src','img/stone/4-l.png');
-    $('#stone3').attr('src','img/stone/4-l.png');
-    $("#stones").fadeOut("slow");
-
+    // $("#current_spell").animate(
+    //     {height: "toggle", opacity: "toggle"},
+    //     "slow"
+    // );
 
 }
 
@@ -84,8 +84,6 @@ $(document).ready(function(){
     function(data){
         console.log(data);
         show_current_spell(data);
-
-        animate_in_spell(data);
 
         // if spell is special
         if (data.length == 1){
@@ -109,6 +107,8 @@ $(document).ready(function(){
         if (data.length == 3){
             // do spell
             sp_spell(data);
+
+            animate_spell();
             reset_spell();
         }
 
