@@ -90,6 +90,25 @@ def uniq_spell(special):
     if special == "B":
         open_url("http://localhost:5000/massage")
 
+    # for harry potter
+    if special == "H":
+        open_url("http://localhost:5000/img/hp.png")
+    if special == "P":
+        open_url("http://localhost:5000/img/hp2.jpg")
+
+    if special == "Z":
+        cmd="""
+        osascript -e 'tell application "Safari"
+            repeat with t in tabs of windows
+                tell t
+                    close
+                end tell
+            end repeat
+        end tell'
+        """
+        os.system(cmd)
+
+
 
     if special == "W":
         reset_spell()

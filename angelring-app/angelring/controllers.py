@@ -20,6 +20,10 @@ from .forms import GenerateForm
 from models import Combination
 from random import randint
 
+# code for museum
+@app.route('/home')
+def home():
+    return render_template('Home.html')
 
 # code for museum
 @app.route('/museum')

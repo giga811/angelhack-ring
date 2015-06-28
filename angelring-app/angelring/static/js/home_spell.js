@@ -11,27 +11,17 @@ function sp_spell(spell){
     $('#result').prepend(myHtml);
     console.log("#Spell casted: " + spell);
 
-    // if monalisa
-    if (spell == "133"){
-        console.log("item-1");
-        $('#museum-info').hide();
-        $('#item-1').show();
-        $('#item-2').hide();
+    // if door open
+    if (spell == "5ab"){
+        var div = $("#home-left")
+        div.animate({right: '1400px'}, "slow");
+        div.fadeOut();
+        var div = $("#home-right")
+        div.animate({left: '1400px'}, "slow");
+        div.fadeOut();
+        $('#home').fadeOut();
     }
-    if (spell == "135"){
-        console.log("item-2");
-        $('#museum-info').hide();
-        $('#item-1').hide();
-        $('#item-2').show();
-    }
-    if ( spell == "a"){
-        $('#item-info').show();
-        $('#item-video').hide();
-    }
-    if ( spell == "b"){
-        $('#item-info').hide();
-        $('#item-video').show();
-    }
+
 }
 
 function show_current_spell(spell){
@@ -102,27 +92,6 @@ $(document).ready(function(){
         show_current_spell(data);
 
         animate_in_spell(data);
-
-        // if spell is special
-        if (data.length == 1){
-            switch (data){
-              case "a":
-                sp_spell(data);
-                animate_out_spell(data);
-                reset_spell();
-                break;
-              case "b":
-                sp_spell(data);
-                animate_out_spell(data);
-                reset_spell();
-                break;
-              case "c":
-                sp_spell(data);
-                animate_out_spell(data);
-                reset_spell();
-                break;
-            }
-        }
 
         // if spell length is 3
         if (data.length == 3){
