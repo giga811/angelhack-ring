@@ -3,7 +3,6 @@
 function reset_spell(){
     $.get('/spell/reset_spell');
     console.log("#Reset spell.");
-    animate_out_spell();
 }
 
 function sp_spell(spell){
@@ -19,6 +18,10 @@ function sp_spell(spell){
         $('#item-1').show();
     }
     if ( spell == "a"){
+        $('#item-1-info').show();
+        $('#item-1-video').hide();
+    }
+    if ( spell == "b"){
         $('#item-1-info').hide();
         $('#item-1-video').show();
     }
@@ -29,7 +32,7 @@ function show_current_spell(spell){
     out.empty();
 
     for (var i = 0; i < spell.length; i++) {
-      var html = '<img id="spell_image" src="/img/spell/' + spell[i] +  '.png">';
+      var html = '<img id="spell_image" src="/img/stone/' + spell[i] +  '.png">';
       out.append(html);
     }
 }
@@ -57,14 +60,20 @@ function animate_in_spell(data){
 
 }
 
-function animate_out_spell(){
+function animate_out_spell(data){
 
     var div = $("#stones")
     div.animate({margin: '50px'}, "slow");
     div.animate({fontSize: '3em'}, "slow");
-    $('#stone1').attr('src','img/stone/4-l.png');
-    $('#stone2').attr('src','img/stone/4-l.png');
-    $('#stone3').attr('src','img/stone/4-l.png');
+    if (data.length >= 1){
+        $("#stone1").attr('src','/img/stone/' + data[0] + '-l.png');
+    }
+    if (data.length >= 2){
+        $("#stone2").attr('src','/img/stone/' + data[1] + '-l.png');
+    }
+    if (data.length == 3){
+        $("#stone3").attr('src','/img/stone/' + data[2] + '-l.png');
+    }
     $("#stones").fadeOut("slow");
 
 
@@ -92,14 +101,17 @@ $(document).ready(function(){
             switch (data){
               case "a":
                 sp_spell(data);
+                animate_out_spell(data);
                 reset_spell();
                 break;
               case "b":
                 sp_spell(data);
+                animate_out_spell(data);
                 reset_spell();
                 break;
               case "c":
                 sp_spell(data);
+                animate_out_spell(data);
                 reset_spell();
                 break;
             }
@@ -109,11 +121,13 @@ $(document).ready(function(){
         if (data.length == 3){
             // do spell
             sp_spell(data);
+            animate_out_spell(data);
             reset_spell();
         }
 
         // if spell length is more than 3
         if (data.length > 3){
+            animate_out_spell(data);
             reset_spell();
         }
 

@@ -90,6 +90,12 @@ def uniq_spell(special):
     if special == "B":
         open_url("http://localhost:5000/massage")
 
+    # for harry potter
+    if special == "H":
+        open_url("http://localhost:5000/img/hp.png")
+    if special == "P":
+        open_url("http://localhost:5000/img/hp2.jpg")
+
 
     if special == "W":
         reset_spell()

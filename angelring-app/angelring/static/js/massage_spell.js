@@ -51,7 +51,7 @@ function show_current_spell(spell){
     out.empty();
 
     for (var i = 0; i < spell.length; i++) {
-      var html = '<img id="spell_image" src="/img/spell/' + spell[i] +  '.png">';
+      var html = '<img id="spell_image" src="/img/stone/' + spell[i] +  '.png">';
       out.append(html);
     }
 }
