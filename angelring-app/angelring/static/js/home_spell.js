@@ -12,7 +12,7 @@ function sp_spell(spell){
     console.log("#Spell casted: " + spell);
 
     // if door open
-    if (spell == "5ab"){
+    if (spell.length == 3){
         var div = $("#home-left")
         div.animate({right: '1400px'}, "slow");
         div.fadeOut();
